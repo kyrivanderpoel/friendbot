@@ -1,3 +1,4 @@
+# TODO: Keep using the command to add more emojis
 condition_to_unicode_emoji = {
     "light rain": ":cloud_with_rain:",
     "broken clouds": ":cloud:",

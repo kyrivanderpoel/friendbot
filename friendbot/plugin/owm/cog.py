@@ -1,3 +1,5 @@
+# TODO: Handle bad weather
+# TODO: Move generating the weather message outside of the weather command
 import datetime
 
 import discord
