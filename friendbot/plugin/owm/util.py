@@ -1,7 +1,8 @@
 # TODO: Keep using the command to add more emojis
 condition_to_unicode_emoji = {
     "light rain": ":cloud_with_rain:",
-    "broken clouds": ":cloud:",
+    "broken clouds": ":white_sun_small_cloud:",
+    "scattered clouds": ":white_sun_small_cloud:",
 }
 
 
@@ -30,7 +31,7 @@ def angle_to_direction(angle):
 
 def get_emoji(condition):
     condition = condition.lower()
-    return condition_to_unicode_emoji.get(condition, "No Emoji :( Bug Kyri to Fix it")
+    return condition_to_unicode_emoji.get(condition, "")
 
 
 def capitalize_words(s, seperator=" "):

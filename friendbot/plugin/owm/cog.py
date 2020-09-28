@@ -38,16 +38,22 @@ class OWMWeather(ClassLoggingCog):
         temperature = observation.weather.temperature("fahrenheit")
         detailed_status = capitalize_words(weather.detailed_status)
         wind = weather.wind(unit='miles_hour')
+        emoji = get_emoji(detailed_status)
         weather_message = f"""
 {ctx.author.mention} here is the current forecast for {place}
 Observation Time: {weather.reference_time(timeformat="iso")}
 Temperature (F): {temperature["temp"]}
 Feels like (F): {temperature["feels_like"]}
-Conditions: {get_emoji(detailed_status)} {detailed_status}
+Conditions: {emoji} {detailed_status}
 Humidity : {weather.humidity}
 Wind: {round(wind["speed"])} mph {angle_to_direction(wind["deg"])}
 Sunrise Time: {weather.sunrise_time(timeformat="iso")}
 Sunset Time: {weather.sunset_time(timeformat="iso")}
         """
+        if not emoji:
+            weather_message += f"""
+Add missing weather status emoji to condition_to_unicode_emoji:
+https://github.com/kbougy/friendbot/blob/master/friendbot/plugin/owm/util.py
+            """
         embed = discord.Embed(description=weather_message)
         await ctx.send(embed=embed)
