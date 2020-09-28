@@ -1,3 +1,4 @@
+# TODO: Application logging to cloudwatch logs using Watchtower
 import logging
 from os import environ
 

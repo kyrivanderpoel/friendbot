@@ -12,6 +12,7 @@ $ pip install --editable .
 
 ```
 export DISCORD_BOT_TOKEN=thetoken
+export OPEN_WEATHER_MAP_API_KEY=thekey
 friendbot-cli start --debug
 ```
 
@@ -29,4 +30,30 @@ In discord:
 ```
 $help
 $help <command>
+```
+
+## Deploy
+Create a secrets file (e.g. secrets.tfvars)
+
+```
+discord_bot_token=thetoken
+open_weather_map_api_key=thekey
+```
+
+Setup the terraform resources
+```
+terraform init
+terraform plan -var-file="secrets.tfvars"
+```
+
+Create the EC2 instance and start up friendbot as a background process.
+As of now you can only get the logs via Console Logs: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-console.html#instance-console-console-output
+
+```
+terraform apply -var-file="secrets.tfvars"
+```
+
+Destroy the resources
+```
+terraform destory -var-file="secrest.tfvars"
 ```
