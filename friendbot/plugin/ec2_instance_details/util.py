@@ -1,3 +1,5 @@
+# Add Friendbot version to metadata collector
+import shutil
 import socket
 
 import attr
@@ -7,36 +9,56 @@ SKIP_REQUESTS_ERRORS = (requests.exceptions.ConnectionError, requests.exceptions
 
 DEFAULT_TIMEOUT = 1
 
+
 @attr.s
 class EC2InstanceMetaDataCollector(object):
+    session = attr.ib(default=attr.Factory(requests.Session))
     timeout = attr.ib(default=DEFAULT_TIMEOUT)
     instance_id = attr.ib()
     ami_id = attr.ib()
     hostname = attr.ib()
+    instance_type = attr.ib()
+    disk_free_gib = attr.ib()
+    disk_total_gib = attr.ib()
+    disk_used_gib = attr.ib()
+
+    def _get_ec2_meta_data(self, data):
+        try:
+            response = self.session.get("http://169.254.169.254/latest/meta-data/{data}", timeout=self.timeout)
+        except Exception:
+            return None
+        return response.text
 
     @instance_id.default
     def _get_instance_id(self):
-        try:
-            response = requests.get("http://169.254.169.254/latest/meta-data/instance-id", timeout=self.timeout)
-        except SKIP_REQUESTS_ERRORS:
-            return None
-        return response.text
+        return self._get_ec2_meta_data("instance-id")
 
     @ami_id.default
     def _get_ami_id(self):
-        try:
-            response = requests.get("http://169.254.169.254/latest/meta-data/ami-id", timeout=self.timeout)
-        except SKIP_REQUESTS_ERRORS:
-            return None
-        return response.text
+        return self._get_ec2_meta_data("ami-id")
 
     @hostname.default
-    def _hostname(self):
-        try:
-            response = requests.get("http://169.254.169.254/latest/meta-data/hostname", timeout=self.timeout)
-        except SKIP_REQUESTS_ERRORS:
-            return None
-        return response.text
+    def _get_hostname(self):
+        return self._get_ec2_meta_data("hostname")
+
+    @instance_type.default
+    def _get_instance_type(self):
+        return self._get_ec2_meta_data("instance-type")
+
+    @disk_free_gib.default
+    def _get_disk_free_gib(self):
+        _total, _used, free = shutil.disk_usage("/")
+        return (free // (2**30))
+
+    @disk_total_gib.default
+    def _get_disk_total_gib(self):
+        total, _used, _free = shutil.disk_usage("/")
+        return (total // (2**30))
+
+    @disk_used_gib.default
+    def _get_disk_total_gib(self):
+        _total, used, _free = shutil.disk_usage("/")
+        return (used // (2**30))
 
 
 def is_running_on_ec2():

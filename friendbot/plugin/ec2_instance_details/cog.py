@@ -18,9 +18,13 @@ class EC2InstanceDetails(ClassLoggingCog):
             message = f"""
 {ctx.author.mention} here are the details about the EC2 instance running friendbot:
 
-{bold('Instance ID:')} {data.instance_id}
-{bold('AMI ID:')}      {data.ami_id}
-{bold('Hostname:')}    {data.hostname}
+{bold('Instance ID:')}      {data.instance_id}
+{bold('AMI ID:')}           {data.ami_id}
+{bold('Hostname:')}         {data.hostname}
+{bold('Instance Type:')}    {data.instance_type}
+{bold('Disk Usage GiB:')}   {data.disk_usage_gib}
+{bold('Disk Free GiB:')}    {data.disk_free_gib}
+{bold('Disk Total GiB:')}   {data.disk_total_gib}
 """
         else:
 
