@@ -57,3 +57,8 @@ Destroy the resources
 ```
 terraform destory -var-file="secrest.tfvars"
 ```
+
+## Todo
+- Plugin that prints logs to the console when an unexpected error occurs
+- Setup logging to cloudwatch
+- Plugin that prints application logs from cloudwatch to discord
