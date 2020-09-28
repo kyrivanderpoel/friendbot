@@ -24,7 +24,7 @@ class EC2InstanceMetaDataCollector(object):
 
     def _get_ec2_meta_data(self, data):
         try:
-            response = self.session.get("http://169.254.169.254/latest/meta-data/{data}", timeout=self.timeout)
+            response = self.session.get(f"http://169.254.169.254/latest/meta-data/{data}", timeout=self.timeout)
         except Exception:
             return None
         return response.text
