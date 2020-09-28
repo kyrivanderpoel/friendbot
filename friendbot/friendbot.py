@@ -5,6 +5,7 @@ import attr
 from discord.ext import commands
 
 from .plugin.ec2_instance_details.cog import EC2InstanceDetails
+from .plugin.friendbot_repo.cog import FriendbotRepo
 from .plugin.on_ready_log_bot_user.cog import OnReadyLogBotUser
 from .plugin.owm.cog import OWMWeather, OWMWeatherConfig
 from .plugin.repeater.cog import Repeater
@@ -13,6 +14,7 @@ logger = getLogger(__name__)
 
 cog_cls_name_to_cog_cls = {
     "OWMWeather": OWMWeather,
+    "FriendbotRepo": FriendbotRepo,
     "OnReadyLogBotUser": OnReadyLogBotUser,
     "Repeater": Repeater,
     "EC2InstanceDetails": EC2InstanceDetails,

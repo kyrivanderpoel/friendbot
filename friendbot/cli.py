@@ -20,6 +20,7 @@ dict_config = dict(
     command_prefix="$",
     plugin_configs=[
         dict(plugin_name="OnReadyLogBotUser"),
+        dict(plugin_name="FriendbotRepo"),
         dict(plugin_name="EC2InstanceDetails"),
         dict(plugin_name="Repeater"),
         dict(plugin_name="OWMWeather", config=dict(owm_api_key=owm_api_key)),
