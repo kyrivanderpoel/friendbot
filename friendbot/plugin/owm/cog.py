@@ -1,4 +1,3 @@
-# TODO: Handle bad place (errors from OWM)
 # TODO: Move generating the weather message outside of the weather command
 # TODO: Return the "place" from the observation so the user gets more details about the place they queried.
 import datetime
@@ -29,19 +28,40 @@ class OWMWeather(ClassLoggingCog):
     @commands.command(help="print the current weather conditions")
     async def weather(self, ctx, *args):
         """Returns the current weather in a nice format"""
-        # Search for current weather in London (Great Britain)
-        weather_manager = self.owm.weather_manager()
         place = " ".join(args)
-        observation = weather_manager.weather_at_place(place)
 
+        weather_manager = self.owm.weather_manager()
+        try:
+            observation = weather_manager.weather_at_place(place)
+        except Exception as e:
+            message = f"""
+{ctx.author.mention} the forecast for is not available. Got an unexpected error:
 
+Query: {place}
+Error: {e}
+            """
+            embed = discord.Embed(description=message)
+            await ctx.send(embed=embed)
+            return
+
+        location_name = observation.location.name
+        location_id = observation.location.id
+        latitude = observation.location.lat
+        longitude = observation.location.lon
+        country = observation.location.country
         weather = observation.weather
         temperature = observation.weather.temperature("fahrenheit")
         detailed_status = capitalize_words(weather.detailed_status)
-        wind = weather.wind(unit='miles_hour')
+        wind = weather.wind(unit="miles_hour")
         emoji = get_emoji(detailed_status)
         weather_message = f"""
-{ctx.author.mention} here is the current forecast for {place}
+{ctx.author.mention} here is the current forecast:
+Location: {location_name}
+Country: {country}
+Location ID: {location_id}
+Latitude: {latitude}
+Longitude: {longitude}
+
 Observation Time: {weather.reference_time(timeformat="iso")}
 Temperature (F): {temperature["temp"]}
 Feels like (F): {temperature["feels_like"]}
@@ -50,6 +70,7 @@ Humidity : {weather.humidity}
 Wind: {round(wind["speed"])} mph {angle_to_direction(wind["deg"])}
 Sunrise Time: {weather.sunrise_time(timeformat="iso")}
 Sunset Time: {weather.sunset_time(timeformat="iso")}
+Query: {place}
         """
         if not emoji:
             weather_message += f"""
