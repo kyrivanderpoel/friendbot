@@ -5,9 +5,11 @@ import requests
 
 SKIP_REQUESTS_ERRORS = (requests.exceptions.ConnectionError, requests.exceptions.ConnectTimeout,)
 
+DEFAULT_TIMEOUT = 1
 
 @attr.s
 class EC2InstanceMetaDataCollector(object):
+    timeout = attr.ib(default=DEFAULT_TIMEOUT)
     instance_id = attr.ib()
     ami_id = attr.ib()
     hostname = attr.ib()
@@ -15,7 +17,7 @@ class EC2InstanceMetaDataCollector(object):
     @instance_id.default
     def _get_instance_id(self):
         try:
-            response = requests.get("http://169.254.169.254/latest/meta-data/instance-id", timeout=0.1)
+            response = requests.get("http://169.254.169.254/latest/meta-data/instance-id", timeout=self.timeout)
         except SKIP_REQUESTS_ERRORS:
             return None
         return response.text
@@ -23,7 +25,7 @@ class EC2InstanceMetaDataCollector(object):
     @ami_id.default
     def _get_ami_id(self):
         try:
-            response = requests.get("http://169.254.169.254/latest/meta-data/ami-id", timeout=0.1)
+            response = requests.get("http://169.254.169.254/latest/meta-data/ami-id", timeout=self.timeout)
         except SKIP_REQUESTS_ERRORS:
             return None
         return response.text
@@ -31,7 +33,7 @@ class EC2InstanceMetaDataCollector(object):
     @hostname.default
     def _hostname(self):
         try:
-            response = requests.get("http://169.254.169.254/latest/meta-data/hostname", timeout=0.1)
+            response = requests.get("http://169.254.169.254/latest/meta-data/hostname", timeout=self.timeout)
         except SKIP_REQUESTS_ERRORS:
             return None
         return response.text
@@ -39,7 +41,7 @@ class EC2InstanceMetaDataCollector(object):
 
 def is_running_on_ec2():
     try:
-        response = requests.get("http://169.254.169.254/latest/meta-data/instance-id", timeout=0.001)
+        response = requests.get("http://169.254.169.254/latest/meta-data/instance-id", timeout=DEFAULT_TIMEOUT)
     except SKIP_REQUESTS_ERRORS:
         return False
     return True

@@ -1,5 +1,6 @@
-# TODO: Handle bad weather
+# TODO: Handle bad place (errors from OWM)
 # TODO: Move generating the weather message outside of the weather command
+# TODO: Return the "place" from the observation so the user gets more details about the place they queried.
 import datetime
 
 import discord
