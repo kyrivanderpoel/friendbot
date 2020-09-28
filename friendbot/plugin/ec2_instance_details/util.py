@@ -56,7 +56,7 @@ class EC2InstanceMetaDataCollector(object):
         return (total // (2**30))
 
     @disk_used_gib.default
-    def _get_disk_total_gib(self):
+    def _get_disk_used_gib(self):
         _total, used, _free = shutil.disk_usage("/")
         return (used // (2**30))
 

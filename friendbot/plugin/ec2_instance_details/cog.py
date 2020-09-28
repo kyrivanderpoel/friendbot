@@ -22,7 +22,7 @@ class EC2InstanceDetails(ClassLoggingCog):
 {bold('AMI ID:')}           {data.ami_id}
 {bold('Hostname:')}         {data.hostname}
 {bold('Instance Type:')}    {data.instance_type}
-{bold('Disk Usage GiB:')}   {data.disk_usage_gib}
+{bold('Disk Used GiB:')}    {data.disk_used_gib}
 {bold('Disk Free GiB:')}    {data.disk_free_gib}
 {bold('Disk Total GiB:')}   {data.disk_total_gib}
 """
