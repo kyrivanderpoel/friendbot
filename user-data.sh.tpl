@@ -17,4 +17,4 @@ source venv/bin/activate
 pip install --editable .
 
 echo 'Starting your best friend!'
-friendbot-cli start &
+friendbot-cli start --debug &
