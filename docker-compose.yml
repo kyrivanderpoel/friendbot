@@ -1,0 +1,8 @@
+version: "3"
+services:
+  friendbot:
+    build: .
+    command: friendbot-cli start --debug
+    environment:
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - OPEN_WEATHER_MAP_API_KEY=${OPEN_WEATHER_MAP_API_KEY}

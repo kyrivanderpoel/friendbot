@@ -32,6 +32,12 @@ $help
 $help <command>
 ```
 
+## Run Locally
+Create a .env file with the environment variables listed under environment in the docker-compose.yml.
+```
+docker-compose build && docker-compose up
+```
+
 ## Deploy
 Create a secrets file (e.g. secrets.tfvars)
 
@@ -59,6 +65,7 @@ terraform destory -var-file="secrest.tfvars"
 ```
 
 ## Todo
-- Plugin that prints logs to the console when an unexpected error occurs
 - Setup logging to cloudwatch
 - Plugin that prints application logs from cloudwatch to discord
+- Reduce duplication of vars in .env and secrets.tfvars. There has to be a way to only need one of those...
+
