@@ -8,9 +8,22 @@ from .friendbot import Friendbot, FriendbotConfig
 from .util import suppress_loud_loggers
 
 
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-logger = logging.getLogger()
 suppress_loud_loggers()
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+file_handler = logging.FileHandler("/var/tmp/friendbot.log")
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.DEBUG)
+console_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
+
 
 discord_token = environ["DISCORD_BOT_TOKEN"]
 owm_api_key = environ["OPEN_WEATHER_MAP_API_KEY"]
@@ -20,7 +33,7 @@ dict_config = dict(
     command_prefix="$",
     plugin_configs=[
         dict(plugin_name="OnReadyLogBotUser"),
-        dict(plugin_name="FriendbotRepo"),
+        dict(plugin_name="FriendbotInfo"),
         dict(plugin_name="EC2InstanceDetails"),
         dict(plugin_name="Repeater"),
         dict(plugin_name="OWMWeather", config=dict(owm_api_key=owm_api_key)),

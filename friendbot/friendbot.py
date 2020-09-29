@@ -5,7 +5,7 @@ import attr
 from discord.ext import commands
 
 from .plugin.ec2_instance_details.cog import EC2InstanceDetails
-from .plugin.friendbot_repo.cog import FriendbotRepo
+from .plugin.friendbot_info.cog import FriendbotInfo
 from .plugin.on_ready_log_bot_user.cog import OnReadyLogBotUser
 from .plugin.owm.cog import OWMWeather, OWMWeatherConfig
 from .plugin.repeater.cog import Repeater
@@ -14,7 +14,7 @@ logger = getLogger(__name__)
 
 cog_cls_name_to_cog_cls = {
     "OWMWeather": OWMWeather,
-    "FriendbotRepo": FriendbotRepo,
+    "FriendbotInfo": FriendbotInfo,
     "OnReadyLogBotUser": OnReadyLogBotUser,
     "Repeater": Repeater,
     "EC2InstanceDetails": EC2InstanceDetails,
@@ -27,7 +27,7 @@ cog_cls_to_config_cls = {
 
 @attr.s(frozen=True)
 class FriendbotConfig(object):
-    discord_token = attr.ib()
+    discord_token = attr.ib(repr=lambda x: "redacted")
     command_prefix = attr.ib(default="$")
     plugin_configs = attr.ib(default=attr.Factory(list))
 
@@ -51,7 +51,6 @@ class Friendbot(object):
 
 
     def start(self):
-        self.logger.debug(f"Starting bot with token: {self.config.discord_token}")
         self.bot.run(self.config.discord_token)
 
 
