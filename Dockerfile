@@ -4,7 +4,8 @@ RUN apk update \
     && apk add \
     gcc \
     linux-headers \
-    libc-dev
+    libc-dev \
+    curl
 WORKDIR /usr/src/app
 COPY . .
 RUN pip install --editable .
