@@ -1,3 +1,4 @@
+# TODO: Add feature for tracking wins/losses over time
 from random import choice
 import attr
 import discord
