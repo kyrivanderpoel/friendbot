@@ -11,5 +11,6 @@ multidict==4.7.6
 pyowm==3.0.0
 PySocks==1.7.1
 requests==2.24.0
+tabulate==0.8.7
 urllib3==1.25.10
 yarl==1.6.0
