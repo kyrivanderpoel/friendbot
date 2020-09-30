@@ -4,11 +4,19 @@ from random import choice
 from tabulate import tabulate
 import attr
 
-DEFAULT_WORDS = ["pee", "poo"]
+def get_words(min_length):
+    with open("/usr/share/dict/words", "r") as f:
+        words = []
+        for word in f.readlines():
+            word = word.strip("\n")
+            if len(word) >= min_length:
+                words.append(word.lower())
+    return words
 
+WORDS = get_words(5)
 
 def get_random_word():
-    return choice(DEFAULT_WORDS)
+    return choice(WORDS)
 
 
 @attr.s
@@ -24,8 +32,8 @@ class Hangman(object):
 
     def guess(self, guess):
         guess = guess.lower()
+        self.guessed.add(guess)
         if guess in self.word:
-            self.guessed.add(guess)
             return True
         else:
             self.misses += 1
