@@ -38,6 +38,13 @@ dict_config = dict(
         dict(plugin_name="Repeater"),
         dict(plugin_name="WordCounter"),
         dict(plugin_name="OWMWeather", config=dict(owm_api_key=owm_api_key)),
+        dict(plugin_name="Oncall", config=dict(
+            shifts=[
+                dict(person="kyri", start_dt="2020-09-28 12:00 PM", end_dt="2020-10-05 12:00 PM"),
+                dict(person="kyri", start_dt="2020-11-09 12:00 PM", end_dt="2020-11-16 12:00 PM"),
+                dict(person="kyri", start_dt="2020-12-21 12:00 PM", end_dt="2020-12-28 12:00 PM"),
+            ]
+        )),
     ]
 )
 
