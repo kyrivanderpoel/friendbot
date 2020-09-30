@@ -36,6 +36,7 @@ dict_config = dict(
         dict(plugin_name="FriendbotInfo"),
         dict(plugin_name="EC2InstanceDetails"),
         dict(plugin_name="Repeater"),
+        dict(plugin_name="WordCounter"),
         dict(plugin_name="OWMWeather", config=dict(owm_api_key=owm_api_key)),
     ]
 )

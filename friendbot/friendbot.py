@@ -9,6 +9,7 @@ from .plugin.friendbot_info.cog import FriendbotInfo
 from .plugin.on_ready_log_bot_user.cog import OnReadyLogBotUser
 from .plugin.owm.cog import OWMWeather, OWMWeatherConfig
 from .plugin.repeater.cog import Repeater
+from .plugin.word_counter.cog import WordCounter
 
 logger = getLogger(__name__)
 
@@ -16,8 +17,9 @@ cog_cls_name_to_cog_cls = {
     "OWMWeather": OWMWeather,
     "FriendbotInfo": FriendbotInfo,
     "OnReadyLogBotUser": OnReadyLogBotUser,
-    "Repeater": Repeater,
     "EC2InstanceDetails": EC2InstanceDetails,
+    "Repeater": Repeater,
+    "WordCounter": WordCounter,
 }
 
 cog_cls_to_config_cls = {

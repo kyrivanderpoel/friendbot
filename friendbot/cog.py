@@ -1,4 +1,4 @@
-"""Concrete classes using the discord Cog extension.
+"""Wrapper around Cog that provides configuration & class name logging.
 
 See: https://discordpy.readthedocs.io/en/latest/ext/commands/cogs.html
 """

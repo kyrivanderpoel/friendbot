@@ -29,3 +29,28 @@ Feel free to fork of the code and submit a pull request!
         """
         embed = discord.Embed(description=message)
         await ctx.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_error(self, event, *args, **kwargs):
+        self.logger.error(f"{event}: {args}, {kwargs}")
+        message = """
+An unexpected error occurred!
+
+event:  {event}
+args:   {args}
+kwargs: {kwargs}
+        """
+        embed = discord.Embed(description=message)
+        await ctx.send(embed=embed)
+
+
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
+        self.logger.error(f"Unexpected error occurred: {error}")
+        message = f"""
+{ctx.author.mention} unexpected error occurred!
+
+{error}
+        """
+        embed = discord.Embed(description=message)
+        await ctx.send(embed=embed)
