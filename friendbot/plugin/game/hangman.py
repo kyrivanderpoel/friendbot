@@ -1,16 +1,17 @@
 import string
 from random import choice
 
+import requests
 from tabulate import tabulate
 import attr
 
 def get_words(min_length):
-    with open("/usr/share/dict/words", "r") as f:
-        words = []
-        for word in f.readlines():
-            word = word.strip("\n")
-            if len(word) >= min_length:
-                words.append(word.lower())
+    response = requests.get("https://www.mit.edu/~ecprice/wordlist.10000")
+    words = []
+    for word in response.text.split("\n"):
+        word = word.strip("\n")
+        if len(word) >= min_length:
+            words.append(word.lower())
     return words
 
 WORDS = get_words(5)

@@ -47,7 +47,8 @@ class Game(ClassLoggingCog):
 
         # Get the existing hangman game or create a new one.
         self.game_state["hangman"] = self.game_state.get("hangman", {})
-        self.game_state["hangman"][ctx.author] = self.game_state["hangman"].get(ctx.author, Hangman())
+        if self.game_state["hangman"].get(ctx.author) is None:
+            self.game_state["hangman"][ctx.author] = Hangman()
         game = self.game_state["hangman"][ctx.author]
 
         # Validate that the argument is a valid character, or return a failure.
@@ -88,6 +89,8 @@ class Game(ClassLoggingCog):
             """
 
         # Persist the game unless it is finished.
-        self.game_state["hangman"][ctx.author] = game if not game.won() else None
+        self.game_state["hangman"][ctx.author] = game
+        if game.won() or game.lost():
+            self.game_state["hangman"][ctx.author] = None
         await ctx.send(embed=discord.Embed(description=message))
 
