@@ -65,7 +65,9 @@ terraform destory -var-file="secrest.tfvars"
 ```
 
 ## Todo
+- Implement actual config file to get my oncall schedule out of the default configuration
 - Setup logging to cloudwatch
 - Plugin that prints application logs from cloudwatch to discord
 - Reduce duplication of vars in .env and secrets.tfvars. There has to be a way to only need one of those...
+
 
