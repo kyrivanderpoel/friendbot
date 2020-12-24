@@ -6,6 +6,7 @@ condition_to_unicode_emoji = {
     "clear sky": ":sunny:",
     "fog": ":fog:",
     "overcast clouds": ":cloud:",
+    "few clouds": ":white_sun_small_cloud:",
 }
 
 
